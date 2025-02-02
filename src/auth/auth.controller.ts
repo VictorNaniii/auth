@@ -1,9 +1,18 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Put,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthDTO } from './dto/aut.dto';
 import { LoginDto } from './dto/login.dto';
 import { RefreshDto } from './dto/refreshDto';
 import { AuthGuard } from 'src/guard/auth.guard';
+import { ChangePasswordDto } from './dto/change-password.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -29,6 +38,11 @@ export class AuthController {
   @UseGuards(AuthGuard)
   @Get('test')
   async test(@Req() req) {
-    return { Mesage: 'Message here u have rights', UserId: req.userId };
+    return { Message: 'Message here u have rights', UserId: req.userId };
+  }
+  @UseGuards(AuthGuard)
+  @Put('change-password')
+  async changePassword(@Body() dto: ChangePasswordDto, @Req() req) {
+    return this.authService.changePassword(dto, req.userId);
   }
 }

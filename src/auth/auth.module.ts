@@ -3,7 +3,11 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModel, authSchema } from './auth.model';
-import { RefreshToken, RefreshTokenSchema } from './refresh.token.schema';
+import {
+  RefreshToken,
+  RefreshTokenSchema,
+} from './schema/refresh.token.schema';
+import { ResetToken, ResetTokenSchema } from './schema/reset-token.schema';
 
 @Module({
   imports: [
@@ -15,6 +19,10 @@ import { RefreshToken, RefreshTokenSchema } from './refresh.token.schema';
       {
         name: RefreshToken.name,
         schema: RefreshTokenSchema,
+      },
+      {
+        name: ResetToken.name,
+        schema: ResetTokenSchema,
       },
     ]),
   ],
